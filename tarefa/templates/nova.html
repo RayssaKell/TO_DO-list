@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minha Agenda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', serif;
+        }
+      
+        body {
+            background-color: #d0e3f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            width: 400px;
+            padding: 30px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 35px;
+            color: #1b4f82;
+            margin-bottom: 10px;
+            text-align: center; 
+        }
+
+        .date-time {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .task-list {
+            margin-top: 20px;
+        }
+
+        .add-task {
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            margin-top: 20px;
+        }
+
+        .add-task input {
+            padding: 15px; 
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            flex-grow: 1;
+            margin-bottom: 10px; 
+            font-size: 1.1rem; 
+            color: #1b4f82; 
+            width: 100%; 
+        }
+
+        .add-task button {
+            padding: 10px 15px;
+            background-color: #1b4f82;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%; 
+        }
+
+        .add-task button:hover {
+            background-color: #163b63;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header">
+            <div class="title">Minha Agenda</div>
+            <div class="date-time" id="date-time"></div>
+        </div>
+        
+        <div class="task-list">
+            {% block content %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <div class="add-task">
+                    <button type="submit">Adicionar</button>
+                </div>
+            </form>
+            {% endblock %}
+        </div>
+    </div>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false };
+            document.getElementById('date-time').textContent = now.toLocaleString('pt-BR', options);
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime(); 
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
